@@ -56,7 +56,6 @@ export const currencyReducer = (state: CurrencyState = initialState, action: Cur
                 amountOfCurrency: '',
             }
 
-
         default:
             return state;
     }

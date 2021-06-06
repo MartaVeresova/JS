@@ -2,7 +2,6 @@ import React from 'react';
 import CurrencyExchange from '../../components/CurrencyExchange/CurrencyExchange';
 import {CurrencyType} from '../../redux/currencyReducer';
 import {useDispatch, useSelector} from 'react-redux';
-// @ts-ignore
 import {Dispatch} from 'redux';
 
 import {
