@@ -23,20 +23,19 @@ const Lesson3 = () => {
             })
     };
 
-    const searchByType = (e: React.MouseEvent<HTMLButtonElement>) => {
-        const type: string = e.currentTarget.dataset.t ? e.currentTarget.dataset.t : '';
-        API.searchFilmsByType(searchNameByType, type)
-            .then(res => {
-                console.log(res)
-                if (res.data.Response === 'True') {
-                    setSearchResultByType(JSON.stringify(res.data.Search))
-                } else {
-                    setSearchResultByType(res.data.Error)
-                }
-            })
-            .catch(err => {
-                console.log(err)
-            })
+    const searchByType = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        try {
+            const type: string = e.currentTarget.dataset.t ? e.currentTarget.dataset.t : '';
+            const res = await API.searchFilmsByType(searchNameByType, type)
+            console.log(res)
+            if (res.data.Response === 'True') {
+                setSearchResultByType(JSON.stringify(res.data.Search))
+            } else {
+                setSearchResultByType(res.data.Error)
+            }
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     return (
