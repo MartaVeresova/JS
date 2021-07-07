@@ -1,20 +1,42 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import API from './API';
 import './lesson_3';
 
 const Lesson3 = () => {
     const [searchName, setSearchName] = useState('');
-    const [serachResult, setSerachResult] = useState('');
+    const [searchResult, setSearchResult] = useState('');
     const [searchNameByType, setSearchNameByType] = useState('');
-    const [serachResultByType, setSerachResultByType] = useState('');
+    const [searchResultByType, setSearchResultByType] = useState('');
 
     const searchFilm = () => {
         API.searchFilmsByTitle(searchName)
+            .then(res => {
+                console.log(res)
+                if (res.data.Response === 'True') {
+                    setSearchResult(JSON.stringify(res.data.Search))
+                } else {
+                    setSearchResult(res.data.Error)
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
     };
 
     const searchByType = (e: React.MouseEvent<HTMLButtonElement>) => {
         const type: string = e.currentTarget.dataset.t ? e.currentTarget.dataset.t : '';
         API.searchFilmsByType(searchNameByType, type)
+            .then(res => {
+                console.log(res)
+                if (res.data.Response === 'True') {
+                    setSearchResultByType(JSON.stringify(res.data.Search))
+                } else {
+                    setSearchResultByType(res.data.Error)
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     return (
@@ -25,17 +47,18 @@ const Lesson3 = () => {
                 <input type="text" value={searchName} onChange={(e) => setSearchName(e.currentTarget.value)}/>
                 <button onClick={searchFilm}>Search</button>
                 <div>
-                    {serachResult}
+                    {searchResult}
                 </div>
             </div>
 
             <div>
                 <h3><p>Search by type:</p></h3>
-                <input type="text" value={searchNameByType} onChange={(e) => setSearchNameByType(e.currentTarget.value)}/>
-                <button onClick={searchByType} data-t='movie'>Movie</button>
-                <button onClick={searchByType} data-t='series'>Series</button>
+                <input type="text" value={searchNameByType}
+                       onChange={(e) => setSearchNameByType(e.currentTarget.value)}/>
+                <button onClick={searchByType} data-t="movie">Movie</button>
+                <button onClick={searchByType} data-t="series">Series</button>
                 <div>
-                    {serachResultByType}
+                    {searchResultByType}
                 </div>
             </div>
         </div>
