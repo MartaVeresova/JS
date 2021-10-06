@@ -99,20 +99,28 @@ console.log('lesson 4');
 
 //Task 7
 // async function sleep(ms: number) {
-//     return new Promise((res) => {
+//    //debugger
 //         setTimeout(() => {
-//             res()
 //             console.log(ms);
+//             debugger
 //         }, ms * 100);
-//     })
-//
 // }
-// async function show() {
-//     await sleep(3)
-//     await sleep(2)
-//     await sleep(1)
-// }
-// show()
+async function sleep(ms: number) {
+    return new Promise((res) => {
+        setTimeout(() => {
+            console.log(ms);
+            res()
+        }, ms * 100);
+    })
+}
+
+async function show() {
+    await sleep(3)
+    await sleep(2)
+    await sleep(1)
+}
+
+show()
 
 
 //Task 8
